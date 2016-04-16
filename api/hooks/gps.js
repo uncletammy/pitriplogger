@@ -9,6 +9,9 @@ var savePoint = function(point){
 };
 
 var setupGps = function(callback){
+
+  sails.log('setting up GPS');
+
   gps = new Bancroft();
 
   gps.on('satellite', function (satellite) {
@@ -28,6 +31,8 @@ var setupGps = function(callback){
 module.exports = function gps(sails) {
   return {
     initialize: function (done) {
+      sails.log('GPS hook starting');
+
       sails.after('hook:orm:loaded', function() {
         setupGps(function(){
           sails.log('GPS ready!');
